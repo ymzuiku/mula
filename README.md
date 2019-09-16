@@ -7,6 +7,13 @@ import Mula from 'mula';
 
 const mula = Mula({
   url: 'http://127.0.0.1:4000',
+  ontimeout: e => {
+    // 对一些状态统一做处理
+    console.log('time-out:', e);
+  },
+  onerror: e => {
+    console.log('have-error:', e);
+  },
 });
 
 const fetchSometing = async () => {
