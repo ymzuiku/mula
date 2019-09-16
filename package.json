@@ -1,6 +1,6 @@
 {
   "name": "mula",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "lib": "tscu src --outDir es --outLib lib --copy 'package.json, README.md'"
   },

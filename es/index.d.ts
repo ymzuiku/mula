@@ -38,4 +38,4 @@ export declare const Mula: (base?: IBaseOptions) => {
     PUT: (url: string, body: any, options?: IOptions) => Promise<any>;
     OPTIONS: (url: string, body: any, options?: IOptions) => Promise<any>;
 };
-export {};
+export default Mula;

@@ -130,3 +130,5 @@ export const Mula = (base?: IBaseOptions) => {
     },
   };
 };
+
+export default Mula;
