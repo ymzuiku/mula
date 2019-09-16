@@ -13,12 +13,23 @@ const mula = Mula({
   },
   onerror: e => {
     console.log('have-error:', e);
+    e.error = { code: '200' };
+    return e;
   },
 });
 
 const fetchSometing = async () => {
   const data1 = await mula.GET('/hello');
-  const data2 = await mula.POST('/hello', { name: 'dog', age: 5 });
+  const data2 = await mula.POST(
+    '/hello',
+    { name: 'dog', age: 5 },
+    {
+      onerror: e => {
+        // 对一些状态单独做处理
+        console.log('have-error:', e);
+      },
+    }
+  );
   const data3 = await mula.PUT('/hello', { name: 'dog', age: 5 });
   const data4 = await mula.DELETE('/hello', { name: 'dog', age: 5 });
   const data5 = await mula.OPTIONS('/hello', { name: 'dog', age: 5 });

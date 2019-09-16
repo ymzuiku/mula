@@ -16,6 +16,7 @@ interface IOptions {
     url?: string;
 }
 export interface IBaseOptions {
+    fixResponse?: (ev: ProgressEvent) => any;
     headers?: {
         [key: string]: string;
     };

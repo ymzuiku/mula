@@ -15,6 +15,7 @@ interface IOptions {
 }
 
 export interface IBaseOptions {
+  fixResponse?: (ev: ProgressEvent) => any;
   headers?: { [key: string]: string };
   onabort?: (ev: ProgressEvent) => any;
   onerror?: (ev: ProgressEvent) => any;
@@ -39,63 +40,61 @@ async function request(opt: IOptions, base: IBaseOptions) {
     xmlReq.timeout = opt.timeout || base.timeout!;
     // 设置期望的返回数据类型 'json' 'text' 'document' ...
     xmlReq.responseType = opt.responseType || base.responseType!;
+
     // 设置请求头
+    const nextHeader = { ...base.headers, ...opt.headers };
+    Object.keys(nextHeader).forEach(key => {
+      xmlReq.setRequestHeader(key, (nextHeader as any)[key]);
+    });
 
-    if (base && base.headers) {
-      Object.keys(base.headers).forEach(key => {
-        xmlReq.setRequestHeader(key, (base.headers as any)[key]);
-      });
-    }
-    if (opt.headers) {
-      Object.keys(opt.headers).forEach(key => {
-        xmlReq.setRequestHeader(key, (opt.headers as any)[key]);
-      });
-    }
-
-    // 非必要回调用
-    if (opt.onloadend) {
-      xmlReq.onloadend = opt.onloadend;
-    }
-    if (opt.onloadstart) {
-      xmlReq.onloadstart = opt.onloadstart;
-    }
-    if (opt.onprogress) {
-      xmlReq.onprogress = opt.onprogress;
-    }
-
-    // 必要回调
-
-    xmlReq.onload = (ev: ProgressEvent) => {
-      // if (xmlReq.responseType) {
-      //   ev = JSON.parse(ev);
-      // }
-      if (opt.onload) {
-        opt.onload(ev);
-      }
-      resolve(ev);
+    const events = {
+      onload: true,
+      onabort: false,
+      onerror: false,
+      ontimeout: false,
+      onloadend: null,
+      onloadstart: null,
+      onprogress: null,
     };
-    xmlReq.onabort = (ev: ProgressEvent) => {
-      if (opt.onabort) {
-        opt.onabort(ev);
-      }
-      reject(ev);
-    };
-    xmlReq.onerror = (ev: ProgressEvent) => {
-      if (opt.onerror) {
-        opt.onerror(ev);
-      }
-      reject(ev);
-    };
-    xmlReq.ontimeout = (ev: ProgressEvent) => {
-      if (opt.ontimeout) {
-        opt.ontimeout(ev);
-      }
-      reject(ev);
-    };
+    Object.keys(events).forEach(key => {
+      const promiseType = (events as any)[key];
+      const baseFn = (base as any)[key];
+      const optFn = (opt as any)[key];
+      (xmlReq as any)[key] = (e: any) => {
+        e = base.fixResponse!(e);
+        e = (baseFn && baseFn(e)) || e;
+        e = (optFn && optFn(e)) || e;
+        if (promiseType !== null) {
+          if (promiseType) {
+            resolve(e);
+          } else {
+            reject(e);
+          }
+        }
+      };
+    });
 
     // 发送请求
     xmlReq.send(opt.body ? JSON.stringify(opt.body) : undefined);
   });
+}
+
+function defaultFixResponse(e: any) {
+  const le = e;
+  e = (e.target && e.target.response) || e;
+  if (typeof e === 'object') {
+    e.httpStatus = {
+      total: le.total,
+      status: le.target && le.target.status,
+      readyState: le.target && le.target.readyState,
+      responseType: le.target && le.target.responseType,
+      responseURL: le.target && le.target.responseURL,
+      statusText: le.target && le.target.statusText,
+      timeStamp: le.timeStamp,
+    };
+  }
+
+  return e;
 }
 
 export const Mula = (base?: IBaseOptions) => {
@@ -106,6 +105,7 @@ export const Mula = (base?: IBaseOptions) => {
     timeout: 9000,
     url: '',
     responseType: 'json',
+    fixResponse: defaultFixResponse,
     ...base,
   } as any;
 
@@ -131,4 +131,5 @@ export const Mula = (base?: IBaseOptions) => {
   };
 };
 
+// tslint:disable-next-line
 export default Mula;
