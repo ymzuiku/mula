@@ -1,6 +1,6 @@
 # Tiny XMLHttpRequest, like axios
 
-仅有 1.5k(gzip) 的体积, 为追求前端项目极致体积的开发者提供
+仅有 1.8k(gzip) 的体积, 为追求前端项目极致体积的开发者提供
 
 ## Feature
 
