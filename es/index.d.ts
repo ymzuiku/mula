@@ -30,7 +30,7 @@ export interface IBaseOptions {
     timeout?: number;
     url?: string;
 }
-export declare const createPull: (base?: IBaseOptions) => {
+export declare const Mula: (base?: IBaseOptions) => {
     reoquest: (options: IOptions) => Promise<unknown>;
     GET: (url: string, body: any, options?: IOptions) => Promise<any>;
     POST: (url: string, body: any, options?: IOptions) => Promise<any>;

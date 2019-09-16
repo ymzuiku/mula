@@ -98,7 +98,7 @@ async function request(opt: IOptions, base: IBaseOptions) {
   });
 }
 
-export const createPull = (base?: IBaseOptions) => {
+export const Mula = (base?: IBaseOptions) => {
   const opt = {
     headers: {
       'Content-Type': 'application/json',
@@ -119,21 +119,13 @@ export const createPull = (base?: IBaseOptions) => {
     POST: async (url: string, body: any, options?: IOptions): Promise<any> => {
       return request({ url, body, method: 'POST', ...options }, opt);
     },
-    DELETE: async (
-      url: string,
-      body: any,
-      options?: IOptions,
-    ): Promise<any> => {
+    DELETE: async (url: string, body: any, options?: IOptions): Promise<any> => {
       return request({ url, body, method: 'DELETE', ...options }, opt);
     },
     PUT: async (url: string, body: any, options?: IOptions): Promise<any> => {
       return request({ url, body, method: 'PUT', ...options }, opt);
     },
-    OPTIONS: async (
-      url: string,
-      body: any,
-      options?: IOptions,
-    ): Promise<any> => {
+    OPTIONS: async (url: string, body: any, options?: IOptions): Promise<any> => {
       return request({ url, body, method: 'OPTIONS', ...options }, opt);
     },
   };
