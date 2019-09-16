@@ -1,12 +1,26 @@
 # Tiny XMLHttpRequest, like axios
 
-仅有 1.5k(gzip) 的体积, 对于最求前端项目极致体积的开发者
+仅有 1.5k(gzip) 的体积, 为追求前端项目极致体积的开发者提供
+
+## Feature
+
+- 对于每个实例可以预设行为
+- Promise 风格
+- JSON 自动处理
+- GET 请求 params 自动处理
+
+## Example
 
 ```js
 import Mula from 'mula';
 
 const mula = Mula({
-  url: 'http://127.0.0.1:4000',
+  // 可选，请求URL前缀
+  prefixUrl: 'http://127.0.0.1:4000',
+  // 可选，重定义默认的对 XMLHttpRequire 的数据处理
+  fixResponse: (e)=>{
+    return e;
+  }
   ontimeout: e => {
     // 对一些状态统一做处理
     console.log('time-out:', e);
@@ -29,7 +43,7 @@ const fetchSometing = async () => {
     {
       onerror: e => {
         // 对一些状态单独做处理
-        console.log('have-error:', e);
+        return null
       },
     }
   );
