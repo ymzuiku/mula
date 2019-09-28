@@ -21,7 +21,7 @@ const mula = Mula({
   // XMLHttpRequest: require("xhr2")
 
   // 可选，请求URL前缀
-  prefixUrl: 'http://127.0.0.1:4000',
+  baseURL: 'http://127.0.0.1:4000',
   // 可选，重定义默认的对 XMLHttpRequire 的数据处理
   fixResponse: (e)=>{
     return e;

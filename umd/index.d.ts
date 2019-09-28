@@ -21,11 +21,11 @@ export interface IOptions {
     onprogress?: (ev: ProgressEvent) => any;
     /** 当请求超时的回调 */
     ontimeout?: (ev: ProgressEvent) => any;
-    /** 当请求中断的回调 */
+    /** 当请求中断的类型 */
     responseType?: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
     /** 请求超时时长 */
     timeout?: number;
-    /** 针对每个请求统一设置: 请求url，请求url等于 prefixUrl + url */
+    /** 针对每个请求统一设置: 请求url，请求url等于 baseURL + url */
     url?: string;
 }
 export interface IBaseOptions {
@@ -52,7 +52,7 @@ export interface IBaseOptions {
     /** 针对所有请求统一设置: 当超时回调 */
     ontimeout?: (ev: ProgressEvent) => any;
     /** 针对所有请求统一设置: url前缀 */
-    prefixUrl?: string;
+    baseURL?: string;
     /** 针对所有请求统一设置: 响应类型 */
     responseType?: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
     /** 针对所有请求统一设置: 超时时长 */
