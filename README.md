@@ -16,8 +16,8 @@ import Mula from 'mula'; // If in nodejs: 'mula/umd/node';
 
 
 const mula = Mula({
-  // 如果希望覆盖 XMLHttpRequest 对象
-  // XMLHttpRequest: require("xmlhttprequest").XMLHttpRequest
+  // 如果希望覆盖 XMLHttpRequest 对象, mula/umd/node 默认使用 xhr2
+  // XMLHttpRequest: require("xhr2")
 
   // 可选，请求URL前缀
   prefixUrl: 'http://127.0.0.1:4000',

@@ -33,7 +33,7 @@ export interface IBaseOptions {
   /** 用来替换默认的 XMLHttpRequest */
   XMLHttpRequest: any;
   /** 覆盖默认的数据处理行为 */
-  fixResponse?: (ev: ProgressEvent) => any;
+  fixResponse?: (ev: ProgressEvent, key: string) => any;
   /** 针对所有请求统一设置: headers */
   headers?: { [key: string]: string };
   /** 针对所有请求统一设置: 当请求中断 */
@@ -91,7 +91,7 @@ async function request(opt: IOptions, base: IBaseOptions) {
       const baseFn = (base as any)[key];
       const optFn = (opt as any)[key];
       (xmlReq as any)[key] = (e: any) => {
-        e = base.fixResponse!(e);
+        e = base.fixResponse!(e, key);
         e = (baseFn && baseFn(e)) || e;
         e = (optFn && optFn(e)) || e;
         if (promiseType !== null) {
@@ -110,7 +110,7 @@ async function request(opt: IOptions, base: IBaseOptions) {
 }
 
 /** 默认的数据处理行为 */
-export function defaultFixResponse(e: any) {
+export function defaultFixResponse(e: any, key: string) {
   if (!e) {
     return e;
   }
@@ -138,7 +138,7 @@ export const Mula = (base?: IBaseOptions) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    timeout: 9000,
+    timeout: 5000,
     url: '',
     responseType: 'json',
     fixResponse: defaultFixResponse,

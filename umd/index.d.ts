@@ -32,7 +32,7 @@ export interface IBaseOptions {
     /** 用来替换默认的 XMLHttpRequest */
     XMLHttpRequest: any;
     /** 覆盖默认的数据处理行为 */
-    fixResponse?: (ev: ProgressEvent) => any;
+    fixResponse?: (ev: ProgressEvent, key: string) => any;
     /** 针对所有请求统一设置: headers */
     headers?: {
         [key: string]: string;
@@ -59,7 +59,7 @@ export interface IBaseOptions {
     timeout?: number;
 }
 /** 默认的数据处理行为 */
-export declare function defaultFixResponse(e: any): any;
+export declare function defaultFixResponse(e: any, key: string): any;
 /** 创建一个 mula 请求器 */
 export declare const Mula: (base?: IBaseOptions | undefined) => {
     /** 通用请求 */

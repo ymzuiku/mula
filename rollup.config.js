@@ -71,6 +71,6 @@ watcher.on('event', event => {
     console.log(event);
   }
   if (event.code === 'END') {
-    watcher.close();
+    // watcher.close();
   }
 });
