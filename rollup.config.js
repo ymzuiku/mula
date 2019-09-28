@@ -37,7 +37,27 @@ const watchOptions = {
   ],
 };
 
-const watcher = rollup.watch([watchOptions]);
+const nodeOption = {
+  input: './lib/node.ts',
+  output: {
+    file: './umd/node.js',
+    format: 'umd',
+    name: 'queryString',
+    sourcemap: true,
+    globals: {
+      react: 'React',
+    },
+  },
+  plugins: [
+    rollupTypescript({
+      useTsconfigDeclarationDir: false,
+    }),
+    uglify({
+      sourcemap: true,
+    }),
+  ],
+};
+const watcher = rollup.watch([watchOptions, nodeOption]);
 
 // event.code can be one of:
 //   START        — the watcher is (re)starting

@@ -12,11 +12,11 @@
 ## Example
 
 ```js
-import Mula from 'mula'; // If in nodejs: 'mula/node';
+import Mula from 'mula'; // If in nodejs: 'mula/umd/node';
 
 
 const mula = Mula({
-  // 如果希望在 nodejs 中使用，添加覆盖 XMLHttpRequest 对象
+  // 如果希望覆盖 XMLHttpRequest 对象
   // XMLHttpRequest: require("xmlhttprequest").XMLHttpRequest
 
   // 可选，请求URL前缀
