@@ -108,6 +108,10 @@ async function request(opt: IOptions, base: IBaseOptions) {
 
 /** 默认的数据处理行为 */
 export function defaultFixResponse(e: any) {
+  if (!e) {
+    return e;
+  }
+
   const le = e;
   e = (e.target && e.target.response) || e;
   if (typeof e === 'object') {

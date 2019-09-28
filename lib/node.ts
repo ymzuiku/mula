@@ -56,11 +56,11 @@ export interface IBaseOptions {
   timeout?: number;
 }
 
-const XMLHttpRequest = require('xhr2');
+const XHR = require('xmlhttprequest').XMLHttpRequest;
 
 async function request(opt: IOptions, base: IBaseOptions) {
   return new Promise((resolve, reject) => {
-    const xmlReq = new XMLHttpRequest();
+    const xmlReq = new XHR();
 
     // 初始化请求
     xmlReq.open(opt.method, `${base.prefixUrl}${opt.url}`);
@@ -110,6 +110,10 @@ async function request(opt: IOptions, base: IBaseOptions) {
 
 /** 默认的数据处理行为 */
 export function defaultFixResponse(e: any) {
+  if (!e) {
+    return e;
+  }
+
   const le = e;
   e = (e.target && e.target.response) || e;
   if (typeof e === 'object') {

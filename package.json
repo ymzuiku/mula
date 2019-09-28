@@ -1,6 +1,6 @@
 {
   "name": "mula",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "scripts": {
     "lib": "node rollup.config.js"
   },
@@ -26,6 +26,6 @@
   ],
   "dependencies": {
     "querystring-number": "^1.0.6",
-    "xhr2": "^0.2.0"
+    "xmlhttprequest": "^1.8.0"
   }
 }
