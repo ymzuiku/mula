@@ -30,6 +30,8 @@ export interface IOptions {
 }
 
 export interface IBaseOptions {
+  /** 用来替换默认的 XMLHttpRequest */
+  XMLHttpRequest: any;
   /** 覆盖默认的数据处理行为 */
   fixResponse?: (ev: ProgressEvent) => any;
   /** 针对所有请求统一设置: headers */
@@ -58,7 +60,8 @@ export interface IBaseOptions {
 
 async function request(opt: IOptions, base: IBaseOptions) {
   return new Promise((resolve, reject) => {
-    const xmlReq = new XMLHttpRequest();
+    const XHR = base.XMLHttpRequest || XMLHttpRequest;
+    const xmlReq = new XHR();
 
     // 初始化请求
     xmlReq.open(opt.method, `${base.prefixUrl}${opt.url}`);

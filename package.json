@@ -1,6 +1,6 @@
 {
   "name": "mula",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "scripts": {
     "lib": "node rollup.config.js"
   },

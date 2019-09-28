@@ -29,6 +29,8 @@ export interface IOptions {
     url?: string;
 }
 export interface IBaseOptions {
+    /** 用来替换默认的 XMLHttpRequest */
+    XMLHttpRequest: any;
     /** 覆盖默认的数据处理行为 */
     fixResponse?: (ev: ProgressEvent) => any;
     /** 针对所有请求统一设置: headers */

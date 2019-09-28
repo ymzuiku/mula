@@ -1,6 +1,6 @@
 # Tiny XMLHttpRequest, like axios
 
-仅有 1.8k(gzip) 的体积, 为追求前端项目极致体积的开发者提供, 兼容 Nodejs
+仅有 1.8k(gzip) 的体积, 为追求前端项目极致体积的开发者提供, 可兼容 Nodejs
 
 ## Feature
 
@@ -16,6 +16,9 @@ import Mula from 'mula'; // If in nodejs: 'mula/node';
 
 
 const mula = Mula({
+  // 如果希望在 nodejs 中使用，添加覆盖 XMLHttpRequest 对象
+  // XMLHttpRequest: require("xmlhttprequest").XMLHttpRequest
+
   // 可选，请求URL前缀
   prefixUrl: 'http://127.0.0.1:4000',
   // 可选，重定义默认的对 XMLHttpRequire 的数据处理
