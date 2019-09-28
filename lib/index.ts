@@ -1,4 +1,4 @@
-import { stringify } from 'querystring-number';
+import queryString from 'querystring-number';
 
 export interface IOptions {
   /** 请求体 */
@@ -146,7 +146,7 @@ export const Mula = (base?: IBaseOptions) => {
     /** GET 请求, 使用 params 代替 body */
     GET: async (url: string, params?: any, options?: IOptions): Promise<any> => {
       if (params) {
-        url = `${url}?${stringify(params)}`;
+        url = `${url}?${queryString.stringify(params)}`;
       }
 
       return request({ url, method: 'GET', ...options }, opt);

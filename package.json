@@ -1,10 +1,12 @@
 {
   "name": "mula",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "scripts": {
-    "lib": "rollup -c"
+    "lib": "node rollup.config.js"
   },
   "devDependencies": {
+    "@types/fs-extra": "^8.0.0",
+    "fs-extra": "^8.1.0",
     "rollup": "^1.21.4",
     "rollup-plugin-typescript2": "^0.24.3",
     "rollup-plugin-uglify": "^6.0.3",
@@ -14,14 +16,16 @@
   "repository": "ymzuiku/mula",
   "author": "pillar <ymblender@gmail.com>",
   "main": "umd/index.js",
-  "types": "src/index.ts",
+  "types": "umd/index.d.ts",
   "files": [
     "umd"
   ],
   "keywords": [
-    "babel-plugin"
+    "fetch",
+    "axios"
   ],
   "dependencies": {
-    "querystring-number": "^1.0.1"
+    "querystring-number": "^1.0.6",
+    "xhr2": "^0.2.0"
   }
 }
