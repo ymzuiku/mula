@@ -151,7 +151,7 @@ export const Mula = (base?: IBaseOptions) => {
       return request(options, opt);
     },
     /** GET 请求, 使用 params 代替 body */
-    GET: async (url: string, params?: any, options?: IOptions): Promise<any> => {
+    get: async (url: string, params?: any, options?: IOptions): Promise<any> => {
       if (params) {
         url = `${url}?${queryString.stringify(params)}`;
       }
@@ -159,19 +159,19 @@ export const Mula = (base?: IBaseOptions) => {
       return request({ url, method: 'GET', ...options }, opt);
     },
     /** POST 请求 */
-    POST: async (url: string, body: any, options?: IOptions): Promise<any> => {
+    post: async (url: string, body: any, options?: IOptions): Promise<any> => {
       return request({ url, body, method: 'POST', ...options }, opt);
     },
     /** DELETE 请求 */
-    DELETE: async (url: string, body: any, options?: IOptions): Promise<any> => {
+    delete: async (url: string, body: any, options?: IOptions): Promise<any> => {
       return request({ url, body, method: 'DELETE', ...options }, opt);
     },
     /** PUT 请求 */
-    PUT: async (url: string, body: any, options?: IOptions): Promise<any> => {
+    put: async (url: string, body: any, options?: IOptions): Promise<any> => {
       return request({ url, body, method: 'PUT', ...options }, opt);
     },
     /** OPTIONS 请求 */
-    OPTIONS: async (url: string, body: any, options?: IOptions): Promise<any> => {
+    options: async (url: string, body: any, options?: IOptions): Promise<any> => {
       return request({ url, body, method: 'OPTIONS', ...options }, opt);
     },
   };

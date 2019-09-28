@@ -4,7 +4,7 @@
 
 ## Feature
 
-- 更加简化的返回类型
+- 更加简化的返回类型, 焦距最终的返回值, 而不是过程
 - 对于每个实例可以预设行为
 - Promise 风格
 - JSON 自动处理
@@ -41,18 +41,19 @@ const mula = Mula({
 });
 
 const fetchSometing = async () => {
-  const data1 = await mula.GET('/hello');
-  const data2 = await mula.POST(
+  const data1 = await mula.get('/hello');
+  const data2 = await mula.post(
     '/hello',
     { name: 'dog', age: 5 },
     {
       onerror: e => {
-        // 对一些状态单独做处理
+        // 对一些状态单独做处理, 例如，弱error就返回null
         return null
       },
     }
   );
-  const data3 = await mula.PUT('/hello', { name: 'dog', age: 5 });
-  const data4 = await mula.DELETE('/hello', { name: 'dog', age: 5 });
+  const data3 = await mula.put('/hello', { name: 'dog', age: 5 });
+  const data4 = await mula.delete('/hello', { name: 'dog', age: 5 });
+  const data4 = await mula.options('/hello', { name: 'dog', age: 5 });
 };
 ```

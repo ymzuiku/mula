@@ -65,14 +65,14 @@ export declare const Mula: (base?: IBaseOptions | undefined) => {
     /** 通用请求 */
     reoquest: (options: IOptions) => Promise<unknown>;
     /** GET 请求, 使用 params 代替 body */
-    GET: (url: string, params?: any, options?: IOptions | undefined) => Promise<any>;
+    get: (url: string, params?: any, options?: IOptions | undefined) => Promise<any>;
     /** POST 请求 */
-    POST: (url: string, body: any, options?: IOptions | undefined) => Promise<any>;
+    post: (url: string, body: any, options?: IOptions | undefined) => Promise<any>;
     /** DELETE 请求 */
-    DELETE: (url: string, body: any, options?: IOptions | undefined) => Promise<any>;
+    delete: (url: string, body: any, options?: IOptions | undefined) => Promise<any>;
     /** PUT 请求 */
-    PUT: (url: string, body: any, options?: IOptions | undefined) => Promise<any>;
+    put: (url: string, body: any, options?: IOptions | undefined) => Promise<any>;
     /** OPTIONS 请求 */
-    OPTIONS: (url: string, body: any, options?: IOptions | undefined) => Promise<any>;
+    options: (url: string, body: any, options?: IOptions | undefined) => Promise<any>;
 };
 export default Mula;
