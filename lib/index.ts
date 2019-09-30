@@ -118,7 +118,7 @@ export function defaultFixResponse(e: any, key: string) {
   const le = e;
   e = (e.target && e.target.response) || e;
   if (typeof e === 'object') {
-    e.httpStatus = {
+    e.__httpStatus = {
       total: le.total,
       status: le.target && le.target.status,
       readyState: le.target && le.target.readyState,
