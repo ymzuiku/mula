@@ -91,7 +91,7 @@ async function request(opt: IOptions, base: IBaseOptions) {
       const baseFn = (base as any)[key];
       const optFn = (opt as any)[key];
       (xmlReq as any)[key] = (e: any) => {
-        e = base.fixResponse!(e, key);
+        e = base.reducer!(e, key);
         e = (baseFn && baseFn(e)) || e;
         e = (optFn && optFn(e)) || e;
         if (promiseType !== null) {
@@ -132,8 +132,8 @@ export function defaultReducer(res: any, key: string) {
   return res;
 }
 
-/** 创建一个 mula 请求器 */
-export const Mula = (base?: IBaseOptions) => {
+/** 创建一个 http 请求器 */
+export const VanillaHttp = (base?: IBaseOptions) => {
   const opt = {
     headers: {
       'Content-Type': 'application/json',
@@ -178,4 +178,4 @@ export const Mula = (base?: IBaseOptions) => {
 };
 
 // tslint:disable-next-line
-export default Mula;
+export default VanillaHttp;

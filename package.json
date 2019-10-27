@@ -1,6 +1,6 @@
 {
-  "name": "mula",
-  "version": "1.1.7",
+  "name": "vanilla-http",
+  "version": "0.1.1",
   "scripts": {
     "lib": "node rollup.config.js"
   },
@@ -13,7 +13,7 @@
     "typescript": "3.5.2"
   },
   "description": "like fetch",
-  "repository": "ymzuiku/mula",
+  "repository": "ymzuiku/vanilla-http",
   "author": "pillar <ymblender@gmail.com>",
   "main": "umd/index.js",
   "types": "umd/index.d.ts",

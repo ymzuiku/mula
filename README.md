@@ -13,13 +13,10 @@
 ## Example
 
 ```js
-import Mula from 'mula'; // If in nodejs: 'mula/umd/node';
+import Http from 'vanilla-http';
+// const Http = require('vanilla-http/umd/node'); // If in nodejs
 
-
-const mula = Mula({
-  // 如果希望覆盖 XMLHttpRequest 对象, mula/umd/node 默认使用 xhr2
-  // XMLHttpRequest: require("xhr2")
-
+const http = Http({
   // 可选，请求URL前缀
   baseURL: 'http://127.0.0.1:4000',
   // 可选，对 XMLHttpRequire 的返回数据预处理，默认会将http必要信息放入 __http__
@@ -41,8 +38,8 @@ const mula = Mula({
 });
 
 const fetchSometing = async () => {
-  const data1 = await mula.get('/hello');
-  const data2 = await mula.post(
+  const data1 = await http.get('/hello');
+  const data2 = await http.post(
     '/hello',
     { name: 'dog', age: 5 },
     {
@@ -52,8 +49,8 @@ const fetchSometing = async () => {
       },
     }
   );
-  const data3 = await mula.put('/hello', { name: 'dog', age: 5 });
-  const data4 = await mula.delete('/hello', { name: 'dog', age: 5 });
-  const data4 = await mula.options('/hello', { name: 'dog', age: 5 });
+  const data3 = await http.put('/hello', { name: 'dog', age: 5 });
+  const data4 = await http.delete('/hello', { name: 'dog', age: 5 });
+  const data4 = await http.options('/hello', { name: 'dog', age: 5 });
 };
 ```

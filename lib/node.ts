@@ -1,13 +1,13 @@
 export { IBaseOptions, IOptions } from './index';
 
-import { Mula as Mula_, IBaseOptions } from './index';
+import { VanillaHttp as _VanillaHttp, IBaseOptions } from './index';
 
 const XMLHttpRequest = require('xhr2');
 
-export const Mula = (base: IBaseOptions) =>
-  Mula_({
+export const VanillaHttp = (base: IBaseOptions) =>
+  _VanillaHttp({
     ...base,
     XMLHttpRequest,
   });
 
-export default Mula;
+export default VanillaHttp;
