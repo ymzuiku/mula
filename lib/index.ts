@@ -1,4 +1,4 @@
-import queryString from 'querystring-number';
+const queryString = require('querystring-number');
 
 export interface IOptions {
   /** 请求体 */
@@ -64,7 +64,13 @@ async function request(opt: IOptions, base: IBaseOptions) {
     const xmlReq = new XHR();
 
     // 初始化请求
-    xmlReq.open(opt.method, `${base.baseURL}${opt.url}`);
+    let url;
+    if (base.baseURL) {
+      url = `${base.baseURL}${opt.url}`;
+    } else {
+      url = opt.url;
+    }
+    xmlReq.open(opt.method, url);
 
     // 设置超时时间,0表示永不超时
     xmlReq.timeout = opt.timeout || base.timeout!;
@@ -105,7 +111,11 @@ async function request(opt: IOptions, base: IBaseOptions) {
     });
 
     // 发送请求
-    xmlReq.send(opt.body ? JSON.stringify(opt.body) : undefined);
+    if (opt.body) {
+      xmlReq.send(JSON.stringify(opt.body));
+    } else {
+      xmlReq.send();
+    }
   });
 }
 
@@ -155,7 +165,6 @@ export const VanillaHttp = (base?: IBaseOptions) => {
       if (params) {
         url = `${url}?${queryString.stringify(params)}`;
       }
-
       return request({ url, method: 'GET', ...options }, opt);
     },
     /** POST 请求 */

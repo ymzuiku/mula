@@ -1,2 +1,207 @@
-!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports,require("querystring-number")):"function"==typeof define&&define.amd?define(["exports","querystring-number"],e):e((t=t||self).vanillaHttp={},t.queryString)}(this,function(t,u){"use strict";u=u&&u.hasOwnProperty("default")?u.default:u;var f=function(){return(f=Object.assign||function(t){for(var e,n=1,r=arguments.length;n<r;n++)for(var o in e=arguments[n])Object.prototype.hasOwnProperty.call(e,o)&&(t[o]=e[o]);return t}).apply(this,arguments)};function i(u,i,a,s){return new(a=a||Promise)(function(t,e){function n(t){try{o(s.next(t))}catch(t){e(t)}}function r(t){try{o(s.throw(t))}catch(t){e(t)}}function o(e){e.done?t(e.value):new a(function(t){t(e.value)}).then(n,r)}o((s=s.apply(u,i||[])).next())})}function a(n,r){var o,u,i,t,a={label:0,sent:function(){if(1&i[0])throw i[1];return i[1]},trys:[],ops:[]};return t={next:e(0),throw:e(1),return:e(2)},"function"==typeof Symbol&&(t[Symbol.iterator]=function(){return this}),t;function e(e){return function(t){return function(e){if(o)throw new TypeError("Generator is already executing.");for(;a;)try{if(o=1,u&&(i=2&e[0]?u.return:e[0]?u.throw||((i=u.return)&&i.call(u),0):u.next)&&!(i=i.call(u,e[1])).done)return i;switch(u=0,i&&(e=[2&e[0],i.value]),e[0]){case 0:case 1:i=e;break;case 4:return a.label++,{value:e[1],done:!1};case 5:a.label++,u=e[1],e=[0];continue;case 7:e=a.ops.pop(),a.trys.pop();continue;default:if(!(i=0<(i=a.trys).length&&i[i.length-1])&&(6===e[0]||2===e[0])){a=0;continue}if(3===e[0]&&(!i||e[1]>i[0]&&e[1]<i[3])){a.label=e[1];break}if(6===e[0]&&a.label<i[1]){a.label=i[1],i=e;break}if(i&&a.label<i[2]){a.label=i[2],a.ops.push(e);break}i[2]&&a.ops.pop(),a.trys.pop();continue}e=r.call(n,a)}catch(t){e=[6,t],u=0}finally{o=i=0}if(5&e[0])throw e[1];return{value:e[0]?e[1]:void 0,done:!0}}([e,t])}}}var s=void 0;function c(s,c){return i(this,void 0,void 0,function(){return a(this,function(t){return[2,new Promise(function(u,i){var a=new(c.XMLHttpRequest||XMLHttpRequest);a.open(s.method,""+c.baseURL+s.url),a.timeout=s.timeout||c.timeout,a.responseType=s.responseType||c.responseType;var e=f({},c.headers,s.headers);Object.keys(e).forEach(function(t){a.setRequestHeader(t,e[t])});var t={onload:!0,onabort:!1,onerror:!1,ontimeout:!1,onloadend:null,onloadstart:null,onprogress:null};Object.keys(t).forEach(function(e){var n=t[e],r=c[e],o=s[e];a[e]=function(t){t=c.reducer(t,e),t=r&&r(t)||t,t=o&&o(t)||t,null!==n&&(n?u(t):i(t))}}),a.send(s.body?JSON.stringify(s.body):void 0)})]})})}function e(t,e){if(!t)return t;var n=t;return"object"==typeof(t=t.target&&t.target.response||t)&&(t.__http__={total:n.total,status:n.target&&n.target.status,readyState:n.target&&n.target.readyState,responseType:n.target&&n.target.responseType,responseURL:n.target&&n.target.responseURL,statusText:n.target&&n.target.statusText,timeStamp:n.timeStamp}),t}function n(t){return function(t){var o=f({headers:{"Content-Type":"application/json"},timeout:5e3,url:"",responseType:"json",reducer:e},t);return{reoquest:function(e){return i(s,void 0,void 0,function(){return a(this,function(t){return[2,c(e,o)]})})},get:function(e,n,r){return i(s,void 0,void 0,function(){return a(this,function(t){return n&&(e=e+"?"+u.stringify(n)),[2,c(f({url:e,method:"GET"},r),o)]})})},post:function(e,n,r){return i(s,void 0,void 0,function(){return a(this,function(t){return[2,c(f({url:e,body:n,method:"POST"},r),o)]})})},delete:function(e,n,r){return i(s,void 0,void 0,function(){return a(this,function(t){return[2,c(f({url:e,body:n,method:"DELETE"},r),o)]})})},put:function(e,n,r){return i(s,void 0,void 0,function(){return a(this,function(t){return[2,c(f({url:e,body:n,method:"PUT"},r),o)]})})},options:function(e,n,r){return i(s,void 0,void 0,function(){return a(this,function(t){return[2,c(f({url:e,body:n,method:"OPTIONS"},r),o)]})})}}}(f({},t,{XMLHttpRequest:r}))}var r=require("xhr2");t.VanillaHttp=n,t.default=n,Object.defineProperty(t,"__esModule",{value:!0})});
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+var _this = undefined;
+var queryString = require('querystring-number');
+function request(opt, base) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, new Promise(function (resolve, reject) {
+                    var XHR = base.XMLHttpRequest || XMLHttpRequest;
+                    var xmlReq = new XHR();
+                    // 初始化请求
+                    var url;
+                    if (base.baseURL) {
+                        url = "" + base.baseURL + opt.url;
+                    }
+                    else {
+                        url = opt.url;
+                    }
+                    xmlReq.open(opt.method, url);
+                    // 设置超时时间,0表示永不超时
+                    xmlReq.timeout = opt.timeout || base.timeout;
+                    // 设置期望的返回数据类型 'json' 'text' 'document' ...
+                    xmlReq.responseType = opt.responseType || base.responseType;
+                    // 设置请求头
+                    var nextHeader = __assign({}, base.headers, opt.headers);
+                    Object.keys(nextHeader).forEach(function (key) {
+                        xmlReq.setRequestHeader(key, nextHeader[key]);
+                    });
+                    var events = {
+                        onload: true,
+                        onabort: false,
+                        onerror: false,
+                        ontimeout: false,
+                        onloadend: null,
+                        onloadstart: null,
+                        onprogress: null,
+                    };
+                    Object.keys(events).forEach(function (key) {
+                        var promiseType = events[key];
+                        var baseFn = base[key];
+                        var optFn = opt[key];
+                        xmlReq[key] = function (e) {
+                            e = base.reducer(e, key);
+                            e = (baseFn && baseFn(e)) || e;
+                            e = (optFn && optFn(e)) || e;
+                            if (promiseType !== null) {
+                                if (promiseType) {
+                                    resolve(e);
+                                }
+                                else {
+                                    reject(e);
+                                }
+                            }
+                        };
+                    });
+                    // 发送请求
+                    if (opt.body) {
+                        xmlReq.send(JSON.stringify(opt.body));
+                    }
+                    else {
+                        xmlReq.send();
+                    }
+                })];
+        });
+    });
+}
+/** 默认的数据处理行为 */
+function defaultReducer(res, key) {
+    if (!res) {
+        return res;
+    }
+    var _res = res;
+    res = (res.target && res.target.response) || res;
+    if (typeof res === 'object') {
+        res.__http__ = {
+            total: _res.total,
+            status: _res.target && _res.target.status,
+            readyState: _res.target && _res.target.readyState,
+            responseType: _res.target && _res.target.responseType,
+            responseURL: _res.target && _res.target.responseURL,
+            statusText: _res.target && _res.target.statusText,
+            timeStamp: _res.timeStamp,
+        };
+    }
+    return res;
+}
+/** 创建一个 http 请求器 */
+var VanillaHttp = function (base) {
+    var opt = __assign({ headers: {
+            'Content-Type': 'application/json',
+        }, timeout: 5000, url: '', responseType: 'json', reducer: defaultReducer }, base);
+    return {
+        /** 通用请求 */
+        reoquest: function (options) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, request(options, opt)];
+            });
+        }); },
+        /** GET 请求, 使用 params 代替 body */
+        get: function (url, params, options) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                if (params) {
+                    url = url + "?" + queryString.stringify(params);
+                }
+                return [2 /*return*/, request(__assign({ url: url, method: 'GET' }, options), opt)];
+            });
+        }); },
+        /** POST 请求 */
+        post: function (url, body, options) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, request(__assign({ url: url, body: body, method: 'POST' }, options), opt)];
+            });
+        }); },
+        /** DELETE 请求 */
+        delete: function (url, body, options) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, request(__assign({ url: url, body: body, method: 'DELETE' }, options), opt)];
+            });
+        }); },
+        /** PUT 请求 */
+        put: function (url, body, options) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, request(__assign({ url: url, body: body, method: 'PUT' }, options), opt)];
+            });
+        }); },
+        /** OPTIONS 请求 */
+        options: function (url, body, options) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, request(__assign({ url: url, body: body, method: 'OPTIONS' }, options), opt)];
+            });
+        }); },
+    };
+};
+
+var XMLHttpRequest$1 = require('xhr2');
+var VanillaHttp$1 = function (base) {
+    return VanillaHttp(__assign({}, base, { XMLHttpRequest: XMLHttpRequest$1 }));
+};
+
+exports.VanillaHttp = VanillaHttp$1;
+exports.default = VanillaHttp$1;
 //# sourceMappingURL=node.js.map

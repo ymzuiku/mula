@@ -56,7 +56,7 @@ const watchOptions = [
     input: './lib/node.ts',
     output: {
       file: './umd/node.js',
-      format: 'umd',
+      format: 'cjs',
       name: 'vanillaHttp',
       sourcemap: true,
       globals: {
@@ -67,9 +67,9 @@ const watchOptions = [
       rollupTypescript({
         useTsconfigDeclarationDir: false,
       }),
-      uglify({
-        sourcemap: true,
-      }),
+      // uglify({
+      //   sourcemap: true,
+      // }),
     ],
   },
 ];
