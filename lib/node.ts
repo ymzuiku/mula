@@ -1,4 +1,4 @@
-export { IBaseOptions, IOptions, defaultFixResponse } from './index';
+export { IBaseOptions, IOptions } from './index';
 
 import { Mula as Mula_, IBaseOptions } from './index';
 

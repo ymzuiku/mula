@@ -21,10 +21,10 @@ const watchOptions = {
   output: {
     file: './umd/index.js',
     format: 'umd',
-    name: 'queryString',
+    name: 'Mula',
     sourcemap: true,
     globals: {
-      react: 'React',
+      queryString: 'querystring-number',
     },
   },
   plugins: [
@@ -42,10 +42,10 @@ const nodeOption = {
   output: {
     file: './umd/node.js',
     format: 'umd',
-    name: 'queryString',
+    name: 'MulaNode',
     sourcemap: true,
     globals: {
-      react: 'React',
+      queryString: 'querystring-number',
     },
   },
   plugins: [

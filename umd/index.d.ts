@@ -59,7 +59,7 @@ export interface IBaseOptions {
     timeout?: number;
 }
 /** 默认的数据处理行为 */
-export declare function defaultFixResponse(e: any, key: string): any;
+export declare function defaultReducer(res: any, key: string): any;
 /** 创建一个 mula 请求器 */
 export declare const Mula: (base?: IBaseOptions | undefined) => {
     /** 通用请求 */

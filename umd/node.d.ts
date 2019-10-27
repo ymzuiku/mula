@@ -1,4 +1,4 @@
-export { IBaseOptions, IOptions, defaultFixResponse } from './index';
+export { IBaseOptions, IOptions } from './index';
 import { IBaseOptions } from './index';
 export declare const Mula: (base: IBaseOptions) => {
     reoquest: (options: import(".").IOptions) => Promise<unknown>;

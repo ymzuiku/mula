@@ -110,26 +110,26 @@ async function request(opt: IOptions, base: IBaseOptions) {
 }
 
 /** 默认的数据处理行为 */
-export function defaultFixResponse(e: any, key: string) {
-  if (!e) {
-    return e;
+export function defaultReducer(res: any, key: string) {
+  if (!res) {
+    return res;
   }
 
-  const le = e;
-  e = (e.target && e.target.response) || e;
-  if (typeof e === 'object') {
-    e.__httpStatus = {
-      total: le.total,
-      status: le.target && le.target.status,
-      readyState: le.target && le.target.readyState,
-      responseType: le.target && le.target.responseType,
-      responseURL: le.target && le.target.responseURL,
-      statusText: le.target && le.target.statusText,
-      timeStamp: le.timeStamp,
+  const _res = res;
+  res = (res.target && res.target.response) || res;
+  if (typeof res === 'object') {
+    res.__http__ = {
+      total: _res.total,
+      status: _res.target && _res.target.status,
+      readyState: _res.target && _res.target.readyState,
+      responseType: _res.target && _res.target.responseType,
+      responseURL: _res.target && _res.target.responseURL,
+      statusText: _res.target && _res.target.statusText,
+      timeStamp: _res.timeStamp,
     };
   }
 
-  return e;
+  return res;
 }
 
 /** 创建一个 mula 请求器 */
@@ -141,7 +141,7 @@ export const Mula = (base?: IBaseOptions) => {
     timeout: 5000,
     url: '',
     responseType: 'json',
-    fixResponse: defaultFixResponse,
+    reducer: defaultReducer,
     ...base,
   } as any;
 

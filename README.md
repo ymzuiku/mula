@@ -22,8 +22,8 @@ const mula = Mula({
 
   // 可选，请求URL前缀
   baseURL: 'http://127.0.0.1:4000',
-  // 可选，重定义默认的对 XMLHttpRequire 的数据处理
-  fixResponse: (e)=>{
+  // 可选，对 XMLHttpRequire 的返回数据预处理，默认会将http必要信息放入 __http__
+  reducer: (e)=>{
     return e;
   }
   ontimeout: e => {
