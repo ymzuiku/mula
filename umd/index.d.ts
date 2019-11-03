@@ -30,7 +30,7 @@ export interface IOptions {
 }
 export interface IBaseOptions {
     /** 用来替换默认的 XMLHttpRequest */
-    XMLHttpRequest: any;
+    XMLHttpRequest?: any;
     /** 覆盖默认的数据处理行为 */
     reducer?: (ev: ProgressEvent, key: string) => any;
     /** 针对所有请求统一设置: headers */
