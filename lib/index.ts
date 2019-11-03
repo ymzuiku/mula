@@ -143,7 +143,7 @@ export function defaultReducer(res: any, key: string) {
 }
 
 /** 创建一个 http 请求器 */
-export const VanillaHttp = (base?: IBaseOptions) => {
+const VanillaHttp = (base?: IBaseOptions) => {
   const opt = {
     headers: {
       'Content-Type': 'application/json',

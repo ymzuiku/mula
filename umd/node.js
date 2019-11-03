@@ -1,7 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -202,6 +200,5 @@ var VanillaHttp$1 = function (base) {
     return VanillaHttp(__assign({}, base, { XMLHttpRequest: XMLHttpRequest$1 }));
 };
 
-exports.VanillaHttp = VanillaHttp$1;
-exports.default = VanillaHttp$1;
+module.exports = VanillaHttp$1;
 //# sourceMappingURL=node.js.map

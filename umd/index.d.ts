@@ -61,7 +61,7 @@ export interface IBaseOptions {
 /** 默认的数据处理行为 */
 export declare function defaultReducer(res: any, key: string): any;
 /** 创建一个 http 请求器 */
-export declare const VanillaHttp: (base?: IBaseOptions | undefined) => {
+declare const VanillaHttp: (base?: IBaseOptions | undefined) => {
     /** 通用请求 */
     reoquest: (options: IOptions) => Promise<unknown>;
     /** GET 请求, 使用 params 代替 body */
