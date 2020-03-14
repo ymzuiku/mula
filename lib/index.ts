@@ -1,4 +1,4 @@
-const queryString = require('querystring-number');
+const queryString = require("querystring-number");
 
 export interface IOptions {
   /** 请求体 */
@@ -6,7 +6,7 @@ export interface IOptions {
   /** 请求头 */
   headers?: { [key: string]: string };
   /** 请求方法 */
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS';
+  method?: "GET" | "POST" | "PUT" | "DELETE" | "OPTIONS";
   /** 当请求中断的回调 */
   onabort?: (ev: ProgressEvent) => any;
   /** 当请求错误的回调 */
@@ -22,12 +22,15 @@ export interface IOptions {
   /** 当请求超时的回调 */
   ontimeout?: (ev: ProgressEvent) => any;
   /** 当请求中断的类型 */
-  responseType?: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
+  responseType?: "arraybuffer" | "blob" | "document" | "json" | "text";
   /** 请求超时时长 */
   timeout?: number;
   /** 针对每个请求统一设置: 请求url，请求url等于 baseURL + url */
   url?: string;
+  cacheTime?: number;
 }
+
+type responseTypes = "arraybuffer" | "blob" | "document" | "json" | "text";
 
 export interface IBaseOptions {
   /** 用来替换默认的 XMLHttpRequest */
@@ -53,7 +56,8 @@ export interface IBaseOptions {
   /** 针对所有请求统一设置: url前缀 */
   baseURL?: string;
   /** 针对所有请求统一设置: 响应类型 */
-  responseType?: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
+  responseType?: responseTypes;
+  autoResponseType?: { [key: string]: responseTypes };
   /** 针对所有请求统一设置: 超时时长 */
   timeout?: number;
 }
@@ -90,7 +94,7 @@ async function request(opt: IOptions, base: IBaseOptions) {
       ontimeout: false,
       onloadend: null,
       onloadstart: null,
-      onprogress: null,
+      onprogress: null
     };
     Object.keys(events).forEach(key => {
       const promiseType = (events as any)[key];
@@ -127,7 +131,7 @@ export function defaultReducer(res: any, key: string) {
 
   const _res = res;
   res = (res.target && res.target.response) || res;
-  if (typeof res === 'object') {
+  if (typeof res === "object") {
     res.__http__ = {
       total: _res.total,
       status: _res.target && _res.target.status,
@@ -135,54 +139,92 @@ export function defaultReducer(res: any, key: string) {
       responseType: _res.target && _res.target.responseType,
       responseURL: _res.target && _res.target.responseURL,
       statusText: _res.target && _res.target.statusText,
-      timeStamp: _res.timeStamp,
+      timeStamp: _res.timeStamp
     };
   }
 
   return res;
 }
 
+const cache = {} as any;
+
 /** 创建一个 http 请求器 */
 const VanillaHttp = (base?: IBaseOptions) => {
   const opt = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json"
     },
     timeout: 5000,
-    url: '',
-    responseType: 'json',
+    url: "",
+    responseType: "json",
     reducer: defaultReducer,
-    ...base,
+    autoResponseType: {
+      md: "text",
+      text: "text",
+      html: "text"
+    },
+    ...base
   } as any;
 
   return {
     /** 通用请求 */
     reoquest: async (options: IOptions) => {
-      return request(options, opt);
+      const oldData = cache[options.url!];
+      if (
+        options.cacheTime &&
+        oldData &&
+        Date.now() - oldData.time < options.cacheTime
+      ) {
+        return oldData.res;
+      }
+      const res = await request(options, opt);
+      if (options.cacheTime) {
+        cache[options.url!] = {
+          res,
+          time: Date.now()
+        };
+      }
+      return res;
     },
     /** GET 请求, 使用 params 代替 body */
-    get: async (url: string, params?: any, options?: IOptions): Promise<any> => {
+    get: async (
+      url: string,
+      params?: any,
+      options?: IOptions
+    ): Promise<any> => {
       if (params) {
         url = `${url}?${queryString.stringify(params)}`;
       }
-      return request({ url, method: 'GET', ...options }, opt);
+      const suffixs = url.split(".");
+      const fileType = suffixs[suffixs.length - 1];
+      const responseType = opt.autoResponseType[fileType] || "json";
+
+      return request({ url, responseType, method: "GET", ...options }, opt);
     },
     /** POST 请求 */
     post: async (url: string, body: any, options?: IOptions): Promise<any> => {
-      return request({ url, body, method: 'POST', ...options }, opt);
+      return request({ url, body, method: "POST", ...options }, opt);
     },
     /** DELETE 请求 */
-    delete: async (url: string, body: any, options?: IOptions): Promise<any> => {
-      return request({ url, body, method: 'DELETE', ...options }, opt);
+    delete: async (
+      url: string,
+      body: any,
+      options?: IOptions
+    ): Promise<any> => {
+      return request({ url, body, method: "DELETE", ...options }, opt);
     },
     /** PUT 请求 */
     put: async (url: string, body: any, options?: IOptions): Promise<any> => {
-      return request({ url, body, method: 'PUT', ...options }, opt);
+      return request({ url, body, method: "PUT", ...options }, opt);
     },
     /** OPTIONS 请求 */
-    options: async (url: string, body: any, options?: IOptions): Promise<any> => {
-      return request({ url, body, method: 'OPTIONS', ...options }, opt);
-    },
+    options: async (
+      url: string,
+      body: any,
+      options?: IOptions
+    ): Promise<any> => {
+      return request({ url, body, method: "OPTIONS", ...options }, opt);
+    }
   };
 };
 

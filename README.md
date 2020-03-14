@@ -38,7 +38,10 @@ const http = Http({
 });
 
 const fetchSometing = async () => {
-  const data1 = await http.get('/hello');
+  const data1 = await http.get('/hello', undefined, {
+    // 相同的请求，在3000ms内使用缓存
+    cacheTime: 3000，
+  });
   const data2 = await http.post(
     '/hello',
     { name: 'dog', age: 5 },

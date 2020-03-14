@@ -6,7 +6,7 @@ export interface IOptions {
         [key: string]: string;
     };
     /** 请求方法 */
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS';
+    method?: "GET" | "POST" | "PUT" | "DELETE" | "OPTIONS";
     /** 当请求中断的回调 */
     onabort?: (ev: ProgressEvent) => any;
     /** 当请求错误的回调 */
@@ -22,12 +22,14 @@ export interface IOptions {
     /** 当请求超时的回调 */
     ontimeout?: (ev: ProgressEvent) => any;
     /** 当请求中断的类型 */
-    responseType?: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
+    responseType?: "arraybuffer" | "blob" | "document" | "json" | "text";
     /** 请求超时时长 */
     timeout?: number;
     /** 针对每个请求统一设置: 请求url，请求url等于 baseURL + url */
     url?: string;
+    cacheTime?: number;
 }
+declare type responseTypes = "arraybuffer" | "blob" | "document" | "json" | "text";
 export interface IBaseOptions {
     /** 用来替换默认的 XMLHttpRequest */
     XMLHttpRequest?: any;
@@ -54,7 +56,10 @@ export interface IBaseOptions {
     /** 针对所有请求统一设置: url前缀 */
     baseURL?: string;
     /** 针对所有请求统一设置: 响应类型 */
-    responseType?: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
+    responseType?: responseTypes;
+    autoResponseType?: {
+        [key: string]: responseTypes;
+    };
     /** 针对所有请求统一设置: 超时时长 */
     timeout?: number;
 }
@@ -63,7 +68,7 @@ export declare function defaultReducer(res: any, key: string): any;
 /** 创建一个 http 请求器 */
 declare const VanillaHttp: (base?: IBaseOptions | undefined) => {
     /** 通用请求 */
-    reoquest: (options: IOptions) => Promise<unknown>;
+    reoquest: (options: IOptions) => Promise<any>;
     /** GET 请求, 使用 params 代替 body */
     get: (url: string, params?: any, options?: IOptions | undefined) => Promise<any>;
     /** POST 请求 */

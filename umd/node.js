@@ -64,7 +64,7 @@ function __generator(thisArg, body) {
 }
 
 var _this = undefined;
-var queryString = require('querystring-number');
+var queryString = require("querystring-number");
 function request(opt, base) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -96,7 +96,7 @@ function request(opt, base) {
                         ontimeout: false,
                         onloadend: null,
                         onloadstart: null,
-                        onprogress: null,
+                        onprogress: null
                     };
                     Object.keys(events).forEach(function (key) {
                         var promiseType = events[key];
@@ -134,7 +134,7 @@ function defaultReducer(res, key) {
     }
     var _res = res;
     res = (res.target && res.target.response) || res;
-    if (typeof res === 'object') {
+    if (typeof res === "object") {
         res.__http__ = {
             total: _res.total,
             status: _res.target && _res.target.status,
@@ -142,56 +142,84 @@ function defaultReducer(res, key) {
             responseType: _res.target && _res.target.responseType,
             responseURL: _res.target && _res.target.responseURL,
             statusText: _res.target && _res.target.statusText,
-            timeStamp: _res.timeStamp,
+            timeStamp: _res.timeStamp
         };
     }
     return res;
 }
+var cache = {};
 /** 创建一个 http 请求器 */
 var VanillaHttp = function (base) {
     var opt = __assign({ headers: {
-            'Content-Type': 'application/json',
-        }, timeout: 5000, url: '', responseType: 'json', reducer: defaultReducer }, base);
+            "Content-Type": "application/json"
+        }, timeout: 5000, url: "", responseType: "json", reducer: defaultReducer, autoResponseType: {
+            md: "text",
+            text: "text",
+            html: "text"
+        } }, base);
     return {
         /** 通用请求 */
         reoquest: function (options) { return __awaiter(_this, void 0, void 0, function () {
+            var oldData, res;
             return __generator(this, function (_a) {
-                return [2 /*return*/, request(options, opt)];
+                switch (_a.label) {
+                    case 0:
+                        oldData = cache[options.url];
+                        if (options.cacheTime &&
+                            oldData &&
+                            Date.now() - oldData.time < options.cacheTime) {
+                            return [2 /*return*/, oldData.res];
+                        }
+                        return [4 /*yield*/, request(options, opt)];
+                    case 1:
+                        res = _a.sent();
+                        if (options.cacheTime) {
+                            cache[options.url] = {
+                                res: res,
+                                time: Date.now()
+                            };
+                        }
+                        return [2 /*return*/, res];
+                }
             });
         }); },
         /** GET 请求, 使用 params 代替 body */
         get: function (url, params, options) { return __awaiter(_this, void 0, void 0, function () {
+            var suffixs, fileType, responseType;
             return __generator(this, function (_a) {
                 if (params) {
                     url = url + "?" + queryString.stringify(params);
                 }
-                return [2 /*return*/, request(__assign({ url: url, method: 'GET' }, options), opt)];
+                suffixs = url.split(".");
+                fileType = suffixs[suffixs.length - 1];
+                responseType = opt.autoResponseType[fileType] || "json";
+                return [2 /*return*/, request(__assign({ url: url, responseType: responseType, method: "GET" }, options), opt)];
             });
         }); },
         /** POST 请求 */
         post: function (url, body, options) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, request(__assign({ url: url, body: body, method: 'POST' }, options), opt)];
+                return [2 /*return*/, request(__assign({ url: url, body: body, method: "POST" }, options), opt)];
             });
         }); },
         /** DELETE 请求 */
         delete: function (url, body, options) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, request(__assign({ url: url, body: body, method: 'DELETE' }, options), opt)];
+                return [2 /*return*/, request(__assign({ url: url, body: body, method: "DELETE" }, options), opt)];
             });
         }); },
         /** PUT 请求 */
         put: function (url, body, options) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, request(__assign({ url: url, body: body, method: 'PUT' }, options), opt)];
+                return [2 /*return*/, request(__assign({ url: url, body: body, method: "PUT" }, options), opt)];
             });
         }); },
         /** OPTIONS 请求 */
         options: function (url, body, options) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, request(__assign({ url: url, body: body, method: 'OPTIONS' }, options), opt)];
+                return [2 /*return*/, request(__assign({ url: url, body: body, method: "OPTIONS" }, options), opt)];
             });
-        }); },
+        }); }
     };
 };
 
