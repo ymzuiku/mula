@@ -15,7 +15,7 @@ interface IOptions extends RequestInit {
 export const baseApi = async (url: string, obj?: any, opt: IOptions = {}) => {
   let body: any = void 0;
   let params = "";
-  const useCache = obj.useCache;
+  const useCache = opt.useCache;
   if (opt.method === "GET") {
     params = "?" + qs.stringify(obj);
   } else {
