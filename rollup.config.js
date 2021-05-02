@@ -35,12 +35,12 @@ const watchOptions = [
   {
     input: "./lib/index.ts",
     output: {
-      file: "./umd/index.js",
-      format: "umd",
+      file: "./es/index.js",
+      format: "esm",
       name: "vanillaHttp",
       sourcemap: true,
       globals: {
-        queryString: "querystring-number",
+        querystring: "querystring-number",
       },
     },
     plugins: [
@@ -53,12 +53,8 @@ const watchOptions = [
           };
         },
       },
-      rollupTypescript({
-        useTsconfigDeclarationDir: false,
-      }),
-      uglify({
-        sourcemap: true,
-      }),
+      rollupTypescript(),
+      uglify(),
     ],
   },
 ];

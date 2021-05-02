@@ -1,0 +1,4 @@
+{
+  "exclude": ["node_modules", "es"],
+  "include": ["src", "../../serve"]
+}

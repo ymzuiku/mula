@@ -1,4 +1,4 @@
-import qs from "querystring-number";
+import querystring from "querystring-number";
 const cache = {} as any;
 
 interface IOptions extends RequestInit {
@@ -17,14 +17,14 @@ export const baseApi = async (url: string, obj?: any, opt: IOptions = {}) => {
   let params = "";
   const useCache = opt.useCache;
   if (opt.method === "GET") {
-    params = "?" + qs.stringify(obj);
+    params = "?" + querystring.stringify(obj);
   } else {
     body = obj && JSON.stringify(obj);
   }
   const realUrl = (opt.baseUrl || "") + url + params;
   const cacheKey = realUrl + body;
 
-  // GET 请求，在内存中保留3分钟
+  // 若开启缓存，默认在内存中保留3分钟
   if (useCache) {
     const old = cache[cacheKey];
     if (old && Date.now() - old.time < (opt.cacheTimeout || 60 * 15 * 1000)) {
@@ -79,7 +79,7 @@ export const baseApi = async (url: string, obj?: any, opt: IOptions = {}) => {
     });
 };
 
-const CreateHTTP = (opt: IOptions) => {
+export const createHttp = (opt: IOptions = {}) => {
   return {
     get: (url: string, body?: any, options?: IOptions) => {
       return baseApi(url, body, { ...opt, ...options, method: "GET" });
@@ -96,4 +96,21 @@ const CreateHTTP = (opt: IOptions) => {
   };
 };
 
-export default CreateHTTP;
+export const createZeroApi = <T>(
+  preUrl: string,
+  onError?: (err: string) => any
+): T => {
+  const req = createHttp({ onError });
+  let obj = new Proxy({} as any, {
+    get(target, name) {
+      if (!target[name]) {
+        target[name] = (body: any) => {
+          return req.post(preUrl + "/" + (name as string), body);
+        };
+      }
+      return target[name];
+    },
+  });
+
+  return obj as any;
+};
