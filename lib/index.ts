@@ -3,9 +3,8 @@ const cache = {} as any;
 
 interface IOptions extends RequestInit {
   format?: "text" | "json";
-  useCache?: boolean;
   // base 60 * 15 * 1000
-  cacheTimeout?: number;
+  cacheTime?: number;
   baseUrl?: string;
   reduce?: (res: any) => Promise<any>;
   onSuccess?: (res: any) => Promise<any>;
@@ -14,20 +13,15 @@ interface IOptions extends RequestInit {
 
 export const baseApi = async (url: string, obj?: any, opt: IOptions = {}) => {
   let body: any = void 0;
-  let params = "";
-  const useCache = opt.useCache;
-  if (opt.method === "GET") {
-    params = "?" + querystring.stringify(obj);
-  } else {
-    body = obj && JSON.stringify(obj);
-  }
-  const realUrl = (opt.baseUrl || "") + url + params;
+
+  body = obj && JSON.stringify(obj);
+  const realUrl = (opt.baseUrl || "") + url;
   const cacheKey = realUrl + body;
 
   // 若开启缓存，默认在内存中保留3分钟
-  if (useCache) {
+  if (opt.cacheTime) {
     const old = cache[cacheKey];
-    if (old && Date.now() - old.time < (opt.cacheTimeout || 60 * 15 * 1000)) {
+    if (old && Date.now() - old.time < opt.cacheTime) {
       return old;
     }
   }
@@ -56,9 +50,12 @@ export const baseApi = async (url: string, obj?: any, opt: IOptions = {}) => {
     ...opt,
     headers: opt.headers,
   })
-    .then((res) => res[opt.format || "json"]())
     .then(async (res) => {
-      if (useCache) {
+      const data = await res[opt.format || "json"]();
+      return { body: data, status: res.status, headers: res.headers };
+    })
+    .then(async (res) => {
+      if (opt.cacheTime) {
         cache[cacheKey] = {
           data: res,
           time: Date.now(),

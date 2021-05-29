@@ -1,6 +1,6 @@
 {
   "name": "vanilla-http",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "scripts": {
     "lib": "node rollup.config.js"
   },
@@ -18,7 +18,7 @@
 
   },
   "description": "like fetch",
-  "repository": "ymzuiku/vanilla-http",
+  "repository": "ymzuiku/zero-api",
   "author": "pillar <ymblender@gmail.com>",
   "main": "es/index.js",
   "types": "lib/index.d.ts",
