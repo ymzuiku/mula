@@ -17,7 +17,12 @@ export const baseApi = async (url: string, obj?: any, opt: IOptions = {}) => {
   }
   let body: any = void 0;
 
-  body = obj && JSON.stringify(obj);
+  if (opt.method === "GET") {
+    url += "?" + querystring.stringify(body);
+  } else {
+    body = obj && JSON.stringify(obj);
+  }
+
   const realUrl = (opt.baseUrl || "") + url;
   const cacheKey = realUrl + body;
 

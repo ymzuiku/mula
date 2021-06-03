@@ -35,8 +35,8 @@ const watchOptions = [
   {
     input: "./lib/index.ts",
     output: {
-      file: "./es/index.js",
-      format: "esm",
+      file: "./umd/index.js",
+      format: "umd",
       name: "vanillaHttp",
       sourcemap: true,
       globals: {
