@@ -12,6 +12,9 @@ interface IOptions extends RequestInit {
 }
 
 export const baseApi = async (url: string, obj?: any, opt: IOptions = {}) => {
+  if (typeof window === "undefined") {
+    return;
+  }
   let body: any = void 0;
 
   body = obj && JSON.stringify(obj);

@@ -1,6 +1,6 @@
 {
   "name": "vanilla-http",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "scripts": {
     "lib": "node rollup.config.js"
   },
