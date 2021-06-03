@@ -1,12 +1,14 @@
 {
   "name": "vanilla-http",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "scripts": {
     "lib": "node rollup.config.js"
   },
   "exports": {
     "import":"./lib/index.ts"
   },
+  "main": "es/index.js",
+  "types": "lib/index.ts",
   "devDependencies": {
     "@types/fs-extra": "^8.0.0",
     "fs-extra": "^8.1.0",
@@ -20,8 +22,6 @@
   "description": "like fetch",
   "repository": "ymzuiku/zero-api",
   "author": "pillar <ymblender@gmail.com>",
-  "main": "es/index.js",
-  "types": "lib/index.d.ts",
   "keywords": [
     "fetch",
     "axios"
