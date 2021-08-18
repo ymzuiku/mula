@@ -1,12 +1,18 @@
 {
   "name": "vanilla-http",
-  "version": "3.0.7",
+  "version": "3.0.14",
+  "files": [
+    "lib",
+    "serve",
+    "es",
+    "README.md"
+  ],
   "scripts": {
     "lib": "node rollup.config.js",
     "es": "esbuild --define:process.env.NODE_ENV=\\\"production\\\" lib/index.ts --outdir=es --target=es6  --bundle --external:querystring-number --format=esm --minify --splitting"
   },
   "exports": {
-    "import":"./lib/index.ts"
+    "import": "./lib/index.ts"
   },
   "main": "es/index.js",
   "types": "lib/index.ts",
@@ -18,7 +24,6 @@
     "rollup-plugin-uglify": "^6.0.3",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
-
   },
   "description": "like fetch",
   "repository": "ymzuiku/zero-api",
