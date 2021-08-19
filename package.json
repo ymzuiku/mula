@@ -1,6 +1,6 @@
 {
   "name": "vanilla-http",
-  "version": "3.0.14",
+  "version": "3.1.0",
   "files": [
     "lib",
     "serve",
@@ -12,7 +12,8 @@
     "es": "esbuild --define:process.env.NODE_ENV=\\\"production\\\" lib/index.ts --outdir=es --target=es6  --bundle --external:querystring-number --format=esm --minify --splitting"
   },
   "exports": {
-    "import": "./lib/index.ts"
+    ".": "./lib/index.ts",
+    "./serve/fastifyZeroApi": "./serve/fastifyZeroApi.js"
   },
   "main": "es/index.js",
   "types": "lib/index.ts",
