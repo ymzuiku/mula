@@ -3,7 +3,6 @@ const cache = {} as any;
 
 interface IOptions extends RequestInit {
   format?: "text" | "json";
-  // base 60 * 15 * 1000
   cacheTime?: number;
   baseUrl?: string;
   reduce?: (res: any) => Promise<any>;
@@ -26,7 +25,7 @@ export const baseApi = async (url: string, obj?: any, opt: IOptions = {}) => {
   const realUrl = (opt.baseUrl || "") + url;
   const cacheKey = realUrl + body;
 
-  // 若开启缓存，默认在内存中保留3分钟
+  // 若开启缓存，默认在内存中保留N分钟
   if (opt.cacheTime) {
     const old = cache[cacheKey];
     if (old && Date.now() - old.time < opt.cacheTime) {
